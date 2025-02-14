@@ -60,6 +60,14 @@ logic [31:0] chnl2_arr[];
 // USER TODO
 // generate 100 data for each dynamic array
 initial begin
+  chnl0_arr = new[100];
+  chnl1_arr = new[100];
+  chnl2_arr = new[100];
+  foreach(chnl0_arr[i]) begin
+    chnl0_arr[i] = 'h00C0_00000 + i;
+    chnl1_arr[i] = 'h00C1_00000 + i;
+    chnl2_arr[i] = 'h00C2_00000 + i;
+  end
 end
 
 // USER TODO
@@ -70,12 +78,21 @@ initial begin
   repeat(5) @(posedge clk);
   // channel 0 test
   // TODO use chnl0_arr to send all data
+  foreach(chnl0_arr[i]) begin
+    chnl_write(0, chnl0_arr[i]);
+  end
 
   // channel 1 test
   // TODO use chnl1_arr to send all data
+  foreach(chnl1_arr[i]) begin
+    chnl_write(1, chnl1_arr[i]);
+  end
 
   // channel 2 test
   // TODO use chnl2_arr to send all data
+  foreach(chnl2_arr[i]) begin
+    chnl_write(2, chnl2_arr[i]);
+  end
 
 end
 

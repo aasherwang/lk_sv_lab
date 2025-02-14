@@ -50,6 +50,7 @@ endtask
 
 initial begin
   // generate clk
+  clk_gen();
 end
 
 // reset trigger
@@ -62,6 +63,7 @@ endtask
 
 initial begin
   // trigger rstn
+  rstn_gen();
 end
 
 

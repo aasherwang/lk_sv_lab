@@ -20,7 +20,11 @@ task chnl_write(input logic[31:0] data);
   // USER TODO
   // drive valid data
   // ...
-
+  @(posedge clk);
+  ch_valid <= 1;
+  ch_data <= data;
+  @(negedge clk);
+  wait(ch_ready === 'b1);
   $display("%t channel initial [%s] sent data %x", $time, name, data);
   chnl_idle();
 endtask
@@ -29,7 +33,9 @@ task chnl_idle();
   // USER TODO
   // drive idle data
   // ...
-
+  @(posedge clk);
+  ch_valid <= 0;
+  ch_data <= 0;
 endtask
 
 endmodule
@@ -94,7 +100,14 @@ logic [31:0] chnl2_arr[];
 // USER TODO
 // generate 100 data for each dynamic array
 initial begin
-  //...
+  chnl0_arr = new[100];
+  chnl1_arr = new[100];
+  chnl2_arr = new[100];
+  foreach(chnl0_arr[i]) begin
+    chnl0_arr[i] = 'h00C0_0000 + i;
+    chnl1_arr[i] = 'h00C1_0000 + i;
+    chnl2_arr[i] = 'h00C2_0000 + i;
+  end
 end
 
 // USER TODO
@@ -106,6 +119,9 @@ initial begin
   // USER TODO
   // Give unique names to each channel initiator
   // ...
+  chnl0_init.set_name("chnl0_init");
+  chnl1_init.set_name("chnl1_init");
+  chnl2_init.set_name("chnl2_init");
 
 
   // channel 0 test
