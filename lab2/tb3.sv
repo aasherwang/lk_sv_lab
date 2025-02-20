@@ -144,11 +144,21 @@ module tb3;
   initial begin 
     // USER TODO 3.1
     // instantiate the components chn0/1/2_init chnl0/1/2_gen
-
+    chnl0_init = new("chnl0_init");
+    chnl1_init = new("chnl1_init");
+    chnl2_init = new("chnl2_init");
+    chnl0_gen = new(0);
+    chnl1_gen = new(1);
+    chnl2_gen = new(2);
     // USER TODO 3.2
     // assign the interface handle to each chnl_initiator objects
-
+    chnl0_init.set_interface(chnl0_if);
+    chnl1_init.set_interface(chnl1_if);
+    chnl2_init.set_interface(chnl2_if);
     // USER TODO 3.3
+    basic_test();
+    burst_test();
+    fifo_full_test();
     // START TESTs
     $display("*****************all of tests have been finished********************");
     $finish();
