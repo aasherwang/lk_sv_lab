@@ -213,6 +213,8 @@ module tb4;
   // USER TODO 4.1
   // import defined class from chnl_pkg
 
+  import chnl_pkg::*;
+
   chnl_intf chnl0_if(.*);
   chnl_intf chnl1_if(.*);
   chnl_intf chnl2_if(.*);
@@ -224,12 +226,19 @@ module tb4;
   initial begin 
     // USER TODO 4.3
     // Instantiate the three test environment
-
+    basic_test = new();
+    burst_test = new();
+    fifo_full_test = new();
     // USER TODO 4.4
     // assign the interface handle to each chnl_initiator objects
-
+    basic_test.set_interface(chnl0_if,chnl1_if,chnl2_if);
+    burst_test.set_interface(chnl0_if,chnl1_if,chnl2_if);
+    fifo_full_test.set_interface(chnl0_if,chnl1_if,chnl2_if);
     // USER TODO 4.5
     // START TESTs
+    basic_test.run();
+    burst_test.run();
+    fifo_full_test.run();
     $display("*****************all of tests have been finished********************");
     $finish();
   end
